@@ -15,12 +15,16 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: {
+    color: '#17a2b8',
+    height: '5px',
+    failedColor: '#fa9292'
+  },
   /*
   ** Customize app manifest
   */
   manifest: {
-    theme_color: '#3B8070'
+    theme_color: '#17a2b8'
   },
   /*
   ** Modules
@@ -37,7 +41,8 @@ module.exports = {
       })
     }
   },
-  cache:{
+  mode: 'spa',
+  cache: {
     max: 1000,
     maxAge: 900000
   }

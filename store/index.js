@@ -1,15 +1,15 @@
 import Vuex from 'vuex'
+import LRU from 'lru-cache'
+
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      showDay: 0
-    },
-    mutations: {
-      increment(state, val) {
-        console.log(val);
-        state.showDay++
-      }
+      showDay: 0,
+      cache: LRU({
+        max: 1000,
+        maxAge: 1000 * 60 * 15 //15min
+      })
     }
   })
 }
