@@ -10,6 +10,9 @@ module.exports = {
   head: {
     meta: [
       {charset: 'utf-8'}
+    ],
+    script: [
+      {src: 'https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.98.21/webtorrent.min.js'}
     ]
   },
   /*
@@ -31,7 +34,8 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/pwa',
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    'webtorrent'
   ],
   render: {
     bundleRenderer: {

@@ -1,11 +1,16 @@
 <template>
   <section>
     <div id="cardlist">
-      <b-container class="bv-example-row">
-        <b-row>
+      <b-container fluid>
+        <b-row class="justify-content-md-center">
           <div v-for="item in items">
             <b-col v-if="item.weekday == days">
-              <card :cardTitle="item.name" :imageSrc="item.image" :cardMessage="item.dis"/>
+              <nuxt-link to="/webtorrent/1234" class="nuxt-link">
+                <card :cardTitle="item.name"
+                      :imageSrc="item.image"
+                      :cardMessage="item.dis"
+                />
+              </nuxt-link>
             </b-col>
           </div>
         </b-row>
@@ -75,11 +80,12 @@
   }
 </script>
 
-<!--<style>-->
-  <!--.container {-->
-    <!--display: flex;-->
-    <!--justify-content: center;-->
-    <!--align-items: center;-->
-  <!--}-->
-
-<!--</style>-->
+<style>
+  .nuxt-link{
+    color: black;
+  }
+  .nuxt-link:hover{
+    color: black;
+    text-decoration: none;
+  }
+</style>
