@@ -22,8 +22,6 @@
     </b-container>
     <!-- player script -->
     <script src="/js/hashplayer.js"/>
-    <!--TODO: disqus-->
-    <!-- disqus -->
   </section>
 </template>
 

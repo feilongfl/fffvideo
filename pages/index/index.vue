@@ -5,7 +5,8 @@
         <b-row class="justify-content-md-center">
           <div v-for="item in items">
             <b-col v-if="item.weekday == days">
-              <nuxt-link to="/webtorrent/1234" class="nuxt-link">
+              <!--<p>{{item._id.$oid}}</p>-->
+              <nuxt-link :to="'/anime/' + item._id.$oid" class="nuxt-link">
                 <card :cardTitle="item.name"
                       :imageSrc="item.image"
                       :cardMessage="item.dis"
@@ -24,9 +25,7 @@
   import axios from 'axios'
 
   export const cacheAxiosGet = async (context, url) => {
-    // console.log(context.store.state);
     let data = context.store.state.cache.get(url);
-    // let data = cache.get(url);
     if (data) {
       console.log('read from cache');
       return {items: JSON.parse(data)};
@@ -36,7 +35,7 @@
     data = res.data;
     context.store.state.cache.set(url, JSON.stringify(data));
     return {items: data};
-  }
+  };
 
   export default {
     props: [
@@ -54,6 +53,7 @@
       var queryStr = '&q={"year":' + date.getFullYear() + ',"session":' + parseInt(date.getMonth() / 3 + 1) + '}';
       // todo: test sort
       var sortStr = '&s={"lastupdate":1}';
+      var filedStr = '&f={"_id":1,"dis":1,"image":1,"name":1,"weekday":1}';
 
       // no cache
       // return axios.get(mlabBase + 'databases/' + database + '/collections/' + collection + apikey + queryStr + sortStr)
@@ -63,7 +63,7 @@
       //   })
 
       //with lru cache
-      return cacheAxiosGet(context, mlabBase + 'databases/' + database + '/collections/' + collection + apikey + queryStr + sortStr);
+      return cacheAxiosGet(context, mlabBase + 'databases/' + database + '/collections/' + collection + apikey + queryStr + sortStr + filedStr);
     },
     data() {
       return {
@@ -81,10 +81,11 @@
 </script>
 
 <style>
-  .nuxt-link{
+  .nuxt-link {
     color: black;
   }
-  .nuxt-link:hover{
+
+  .nuxt-link:hover {
     color: black;
     text-decoration: none;
   }

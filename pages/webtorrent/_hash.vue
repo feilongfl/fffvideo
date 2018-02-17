@@ -1,30 +1,22 @@
 <template>
   <section>
     <b-alert show>
-      <b-container>
-        <b-row>
-          <b-col>
-            Hash: {{hash}}
-          </b-col>
-          <b-col>
-            <b-button-group>
-              <b-button variant="success">Download Torrent</b-button>
-              <b-button variant="warning">Copy Magnet</b-button>
-              <b-button variant="danger">Open Magnet</b-button>
-            </b-button-group>
-          </b-col>
-        </b-row>
-      </b-container>
+      <b-button-group>
+        <b-button variant="success">Torrent</b-button>
+        <b-button variant="warning">Copy Magnet</b-button>
+        <b-button variant="danger">Open Magnet</b-button>
+      </b-button-group>
     </b-alert>
-    <!--<b-alert variant="warning" show style="text-align: center">-->
-      <!--If your <strong>LUCKY</strong>,you can watch video here.-->
-    <!--</b-alert>-->
+    <!-- player -->
     <hashplayer :hash="hash" :magnet="magnet"/>
+    <!-- disqus-->
+    <disqus shortname="fffvideo" identifier="testtest"/>
   </section>
 </template>
 
 <script>
   import hashplayer from '~/components/hashplayer.vue'
+  import disqus from 'vue-disqus/VueDisqus.vue'
 
   export default {
     validate({params}) {
@@ -32,7 +24,8 @@
       return (/^\w{40}$/.test(params.hash));
     },
     components: {
-      hashplayer
+      hashplayer,
+      disqus
     },
     asyncData({params}) {
       var magnetHead = 'magnet:?xt=urn:btih:';
