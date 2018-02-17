@@ -12,6 +12,8 @@
     "jquery": "^3.3.1",
     "nuxt": "latest",
     "vue-disqus": "^2.0.4",
+    "vue-dplayer": "^0.0.9",
+    "vue-video-player": "^5.0.2",
     "webtorrent": "^0.98.21"
   },
   "scripts": {

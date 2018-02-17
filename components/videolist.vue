@@ -1,55 +1,56 @@
 <template>
   <section>
     <h4>Video Source:</h4>
-    <b-list-group v-for="item in items">
-      <!--271-->
-      <b-list-group-item v-if="/https?:\/\/(?:[^.]+\.)?iqiyi\.com/.test(item.url)" variant="success">
-        <b-badge variant="info">{{item.rate}}</b-badge>
-        <b-button-group>
-          <b-button variant="success">顶</b-button>
-          <b-button>踩</b-button>
-        </b-button-group>
-        {{item.dis}}
-        <b-badge>爱奇异</b-badge>
-      </b-list-group-item>
-      <!--bili-->
-      <b-list-group-item v-else-if="/https?:\/\/(?:[^.]+\.)?bilibili\.com/.test(item.url)" variant="danger">
-        <b-badge variant="info">{{item.rate}}</b-badge>
-        <b-button-group>
-          <b-button variant="success">顶</b-button>
-          <b-button>踩</b-button>
-        </b-button-group>
-        {{item.dis}}
-        <b-badge>BiliBili</b-badge>
-      </b-list-group-item>
-      <!--magnet-->
-      <b-list-group-item v-else-if="/^magnet:/.test(item.url)" variant="secondary">
-        <b-badge variant="info">{{item.rate}}</b-badge>
-        <b-button-group>
-          <b-button variant="success">顶</b-button>
-          <b-button>踩</b-button>
-        </b-button-group>
-        {{item.dis}}
-        <b-badge>Magnet</b-badge>
-      </b-list-group-item>
-      <!--unknow-->
-      <b-list-group-item v-else>
-        <b-button-group>
-          <b-button variant="success">顶</b-button>
-          <b-button>踩</b-button>
-        </b-button-group>
-        <b-badge variant="info">{{item.rate}}</b-badge>
-        {{item.dis}}
-        <b-badge>Unknow</b-badge>
-      </b-list-group-item>
+    <b-list-group>
+      <div v-for="item in items">
+        <videolist-item name="爱奇异"
+                        :rate="item.rate"
+                        vari="success"
+                        :dis="item.dis"
+                        :originUrl="item.url"
+                        v-if="/https?:\/\/(?:[^.]+\.)?iqiyi\.com/.test(item.url)"
+                        @vli-click="function(){toChangeUrl(item.url)}"/>
+        <videolist-item name="BiliBili"
+                        :rate="item.rate"
+                        vari="danger"
+                        :dis="item.dis"
+                        :originUrl="item.url"
+                        v-else-if="/https?:\/\/(?:[^.]+\.)?bilibili\.com/.test(item.url)"
+                        @vli-click="function(){toChangeUrl(item.url)}"/>
+        <videolist-item name="Magnet"
+                        :rate="item.rate"
+                        vari="secondary"
+                        :dis="item.dis"
+                        :originUrl="item.url"
+                        v-else-if="/^magnet:/.test(item.url)"
+                        @vli-click="function(){toChangeUrl(item.url)}"/>
+        <videolist-item name="Unknow"
+                        :rate="item.rate"
+                        vari="secondary"
+                        :dis="item.dis"
+                        :originUrl="item.url"
+                        v-else
+                        @vli-click="function(){toChangeUrl(item.url)}"/>
+      </div>
     </b-list-group>
   </section>
 </template>
 
 <script>
+  import videolistitem from '~/components/videolist-item.vue'
+
   export default {
     props: [
       'items'
-    ]
+    ],
+    components:{
+      "videolist-item": videolistitem
+    },
+    methods: {
+      toChangeUrl(url) {
+        // console.log(url);
+        this.$emit('change', url);
+      }
+    }
   }
 </script>

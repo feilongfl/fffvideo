@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-alert variant="danger" show>Server Error!</b-alert>
-    <div class="container">
+    <div class="container" fluid>
       <logo/>
       <!--<h1 class="title">-->
         <!--{{title}}-->

@@ -45,6 +45,12 @@ module.exports = {
       })
     }
   },
+  plugins: [
+    {src: '~plugins/nuxt-video-player-plugin.js'}
+  ],
+  css: [
+    'video.js/dist/video-js.css'
+  ],
   mode: 'spa',
   cache: {
     max: 1000,

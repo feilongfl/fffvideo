@@ -2,25 +2,29 @@
   <section>
     <!--show anime Id-->
     <div v-for="item in items">
-      <!--dis-->
-      <b-alert show>{{item._id.$oid}}</b-alert>
-      <h2>{{item.name}}</h2>
-      <p>{{item.year}}{{['冬','春','夏','秋'][item.session - 1]}}
-        <br>每周{{['一','二','三','四','五','六','日'][item.weekday - 1]}}更新。</p>
-      <h5>{{(item.dis == null)? '暂无简介' : item.dis}}</h5>
-      <img :src="item.image"/>
+      <b-carousel controls :interval="4000" indicators>
+        <b-carousel-slide :caption="item.name"
+                          :text="item.year + ['冬','春','夏','秋'][item.session - 1]+'\n每周'+['一','二','三','四','五','六','日'][item.weekday - 1]+'更新。'"
+                          :img-src="item.image"
+        />
+      </b-carousel>
+      <b-alert show>{{(item.dis == null)? '暂无简介' : item.dis}}</b-alert>
       <!--list-->
-      <div v-for="i in item.episode">
-        <nuxt-link :to="'/detial/' + item._id.$oid + '-' + i.index" class="nuxt-link">
-          <card
-            :cardTitle="(i.name == null) ? i.index : i.index + ': ' + i.name"
-            :imageSrc="(i.image == null)? '/img/noimg.png' : i.image"
-          />
-        </nuxt-link>
-      </div>
+      <b-container fluid class="justify-content-md-center">
+        <b-row>
+          <b-col v-for="i in item.episode">
+            <nuxt-link :to="'/detial/' + item._id.$oid + '-' + i.index" class="nuxt-link">
+              <card
+                :cardTitle="(i.name == null) ? i.index : i.index + ': ' + i.name"
+                :imageSrc="(i.image == null)? '/img/noimg.png' : i.image"
+              />
+            </nuxt-link>
+          </b-col>
+        </b-row>
+      </b-container>
     </div>
     <!--disqus-->
-    <disqus shortname="fffvideo" :identifier="item._id.$oid"/>
+    <disqus shortname="fffvideo" :identifier="items[0]._id.$oid"/>
   </section>
 </template>
 
